@@ -19,8 +19,6 @@ It supports single and multiple selection and can be used from traditional XML v
 
 ## Installation
 
-Maven Central publication is coming soon.
-
 For local development, add the library module to your project:
 
 ```kotlin
