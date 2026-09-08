@@ -1,0 +1,9 @@
+<resources>
+    <!-- Brand -->
+
+    <color name="searchable_selector_colorTextPrimary">#1F2937</color>
+    <color name="searchable_selector_colorTextSecondary">#6B7280</color>
+    <color name="searchable_selector_colorTextHint">#9CA3AF</color>
+    <color name="searchable_selector_colorDividerSoft">#E5E7EB</color>
+
+</resources>

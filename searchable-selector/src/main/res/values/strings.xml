@@ -1,0 +1,15 @@
+<resources>
+    <string name="search">Buscar...</string>
+    <string name="all">TODO</string>
+
+    <string name="searchable_selector_accept">Aceptar</string>
+    <string name="searchable_selector_cancel">Cancelar</string>
+    <string name="searchable_selector_close">Cerrar</string>
+
+    <string name="searchable_selector_search">Buscar</string>
+    <string name="searchable_selector_empty">No se encontraron resultados</string>
+
+    <string name="searchable_selector_select_all">Seleccionar todos</string>
+    <string name="searchable_selector_clear">Limpiar</string>
+
+</resources>

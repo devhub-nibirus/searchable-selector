@@ -1,0 +1,14 @@
+﻿<resources>
+    <string name="app_name">SearchableSelector</string>
+    <string name="demo_description">Prueba la selección de ciudades. Busca por nombre o departamento, con o sin tildes (por ejemplo: Junin).</string>
+    <string name="single_button">Selección simple (showSingle)</string>
+    <string name="multiple_button">Selección múltiple (showMultiple)</string>
+    <string name="single_title">Selecciona una ciudad</string>
+    <string name="multiple_title">Selecciona hasta 3 ciudades</string>
+    <string name="no_single_selection">Ninguna ciudad seleccionada.</string>
+    <string name="no_multiple_selection">Ninguna ciudad seleccionada en la lista múltiple.</string>
+    <string name="selection_limit">Puedes seleccionar hasta %1$d ciudades.</string>
+    <string name="open_compose">Ver ejemplo con Compose</string>
+    <string name="compose_title">SearchableSelector con Compose</string>
+    <string name="back_to_binding">Volver al ejemplo con Binding</string>
+</resources>
