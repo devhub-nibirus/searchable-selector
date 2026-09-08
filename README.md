@@ -27,12 +27,12 @@ dependencies {
 }
 ```
 
-Once available on Maven Central:
+Maven Central:
 
 ```kotlin
 dependencies {
     implementation(
-        "io.github.devhub-nibirus:searchable-selector:1.0.0"
+        "io.github.devhub-nibirus:searchable-selector:1.0.1"
     )
 }
 ```
