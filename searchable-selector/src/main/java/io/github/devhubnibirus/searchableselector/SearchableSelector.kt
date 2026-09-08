@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CheckedTextView
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ListView
@@ -166,32 +167,55 @@ object SearchableSelector {
 
         val filteredItems = items.toMutableList()
 
-        val adapter = ArrayAdapter(
+        val adapter = object : ArrayAdapter<T>(
             context,
             android.R.layout.simple_list_item_multiple_choice,
-            filteredItems.map(getLabel).toMutableList()
-        )
+            mutableListOf()
+        ) {
+            override fun getView(
+                position: Int,
+                convertView: View?,
+                parent: android.view.ViewGroup
+            ): View {
+                val view = super.getView(
+                    position,
+                    convertView,
+                    parent
+                )
 
-        itemsList.choiceMode = ListView.CHOICE_MODE_MULTIPLE
+                val checkedText = view.findViewById<CheckedTextView>(
+                    android.R.id.text1
+                )
+
+                getItem(position)?.let { item ->
+                    checkedText.text = getLabel(item)
+                    checkedText.isChecked = getId(item) in selectedIds
+                }
+
+                return view
+            }
+        }
+
+        itemsList.choiceMode = ListView.CHOICE_MODE_NONE
         itemsList.adapter = adapter
 
-        fun updateCheckedItems() {
-            itemsList.clearChoices()
+        fun updateSelectionState() {
+            adapter.notifyDataSetChanged()
 
-            filteredItems.forEachIndexed { index, item ->
-                itemsList.setItemChecked(
-                    index,
-                    getId(item) in selectedIds
-                )
-            }
+            clearSelectionButton.isEnabled =
+                selectedIds.isNotEmpty()
+
+            selectAllButton.isEnabled =
+                maxSelection == null ||
+                        selectedIds.size < maxSelection
         }
 
         fun updateList() {
             adapter.clear()
-            adapter.addAll(filteredItems.map(getLabel))
+            adapter.addAll(filteredItems)
             adapter.notifyDataSetChanged()
 
-            updateCheckedItems()
+            updateSelectionState()
 
             updateEmptyState(
                 listView = itemsList,
@@ -240,37 +264,35 @@ object SearchableSelector {
             if (id in selectedIds) {
                 selectedIds.remove(id)
             } else {
-                val reachedLimit =
+                val limitReached =
                     maxSelection != null &&
                             selectedIds.size >= maxSelection
 
-                if (reachedLimit) {
+                if (limitReached) {
                     onMaxSelectionReached?.invoke(maxSelection!!)
                 } else {
                     selectedIds.add(id)
                 }
             }
 
-            updateCheckedItems()
+            updateSelectionState()
         }
 
         selectAllButton.setOnClickListener {
-            val availableItems = items.filter { item ->
+            val availableItems = filteredItems.filter { item ->
                 getId(item) !in selectedIds
             }
 
-            val remainingSlots = maxSelection?.let {
-                (it - selectedIds.size).coerceAtLeast(0)
+            val remainingSlots = maxSelection?.let { limit ->
+                (limit - selectedIds.size).coerceAtLeast(0)
             }
 
-            val itemsToSelect = if (remainingSlots == null) {
-                availableItems
-            } else {
-                availableItems.take(remainingSlots)
-            }
+            val itemsToSelect = remainingSlots?.let {
+                availableItems.take(it)
+            } ?: availableItems
 
             selectedIds.addAll(itemsToSelect.map(getId))
-            updateCheckedItems()
+            updateSelectionState()
 
             if (
                 maxSelection != null &&
@@ -282,7 +304,7 @@ object SearchableSelector {
 
         clearSelectionButton.setOnClickListener {
             selectedIds.clear()
-            updateCheckedItems()
+            updateSelectionState()
         }
 
         searchInput.addTextChangedListener(
@@ -294,7 +316,7 @@ object SearchableSelector {
         }
 
         dialog.setOnShowListener {
-            updateCheckedItems()
+            updateSelectionState()
         }
 
         searchInput.setText(initialQuery)

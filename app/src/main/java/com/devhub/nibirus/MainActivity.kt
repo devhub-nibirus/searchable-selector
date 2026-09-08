@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 getLabel = { it.label },
                 getId = { it.id },
                 searchText = { "${it.name} ${it.department}" },
-                maxSelection = 3,
+                maxSelection = null,
                 onMaxSelectionReached = { limit ->
                     Toast.makeText(this, getString(R.string.selection_limit, limit), Toast.LENGTH_SHORT).show()
                 },

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/searchable_selector_bg_dialog_soft"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
@@ -51,29 +52,38 @@
         android:gravity="end|center_vertical"
         android:orientation="horizontal"
         android:paddingTop="6dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSelectAll"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
             android:layout_height="40dp"
-            android:minWidth="0dp"
-            android:paddingHorizontal="10dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
             android:text="@string/searchable_selector_select_all"
             android:textAllCaps="false"
-            android:textSize="13sp" />
+            android:textColor="@color/searchable_selector_colorTextPrimary"
+            android:textSize="12sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/searchable_selector_colorDividerSoft"
+            app:strokeWidth="1dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnClearSelection"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
             android:layout_height="40dp"
-            android:minWidth="0dp"
-            android:paddingHorizontal="10dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:enabled="false"
             android:text="@string/searchable_selector_clear"
             android:textAllCaps="false"
-            android:textSize="13sp" />
+            android:textColor="@color/searchable_selector_colorTextPrimary"
+            android:textSize="12sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/searchable_selector_colorDividerSoft"
+            app:strokeWidth="1dp" />
 
     </LinearLayout>
 
